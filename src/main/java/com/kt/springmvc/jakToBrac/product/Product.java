@@ -14,6 +14,8 @@ public class Product {
     private Component component;
     private List<Component> otherComponentList;
 
+   private Product() {    }
+
     public static class ProductBuilder {
         private Product product;
 
@@ -36,7 +38,7 @@ public class Product {
             return this;
         }
 
-        public ProductBuilder withotherComponents(List<Component> otherComponentList) {
+        public ProductBuilder withOtherComponents(List<Component> otherComponentList) {
             product.setOtherComponentList(otherComponentList);
             return this;
         }
