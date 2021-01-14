@@ -1,6 +1,6 @@
-package com.kt.springmvc.jakToBrac.interaction;
+package com.kt.springmvc.jakToBrac.interaction.dto;
 
-import com.kt.springmvc.jakToBrac.product.Product;
+import com.kt.springmvc.jakToBrac.product.dto.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,4 +15,5 @@ public class InteractionOneProduct {
     Product product;
     private FoodInteraction foodInteraction;
     private List<FoodRestricted> foodRestrictedList;
+    private int minDelayInHours;
 }

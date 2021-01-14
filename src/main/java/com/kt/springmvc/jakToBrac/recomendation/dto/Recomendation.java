@@ -1,13 +1,13 @@
-package com.kt.springmvc.jakToBrac.recomendation;
+package com.kt.springmvc.jakToBrac.recomendation.dto;
 
-import com.kt.springmvc.jakToBrac.interaction.InteractionOneProduct;
-import com.kt.springmvc.jakToBrac.product.Product;
+import com.kt.springmvc.jakToBrac.interaction.dto.InteractionOneProduct;
+import com.kt.springmvc.jakToBrac.product.dto.Product;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-class Recomendation {
+public class Recomendation {
 
     List<Set<Product>> productsEatTogether;
     List<Map<Product, Integer>> productsEatOneWithDelay;

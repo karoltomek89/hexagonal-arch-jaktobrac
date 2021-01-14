@@ -1,4 +1,4 @@
-package com.kt.springmvc.jakToBrac.product;
+package com.kt.springmvc.jakToBrac.product.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ public class Product {
 
    private Product() {    }
 
-    public static class ProductBuilder {
+   public static class ProductBuilder {
         private Product product;
 
         public ProductBuilder() {
