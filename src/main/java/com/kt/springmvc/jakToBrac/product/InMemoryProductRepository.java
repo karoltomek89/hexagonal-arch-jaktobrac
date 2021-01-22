@@ -1,6 +1,9 @@
 package com.kt.springmvc.jakToBrac.product;
 
 import com.kt.springmvc.jakToBrac.product.dto.Product;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Objects.requireNonNull;
@@ -27,9 +30,13 @@ class InMemoryProductRepository {
         map.remove(name);
     }
 
+    List<Product> findAll(){
+        return new ArrayList<>(map.values());
+    }
+
     class ProductNotFoundException extends RuntimeException {
-        public ProductNotFoundException(String title) {
-            super("No product of name \"" + title + "\" found", null, false, false);
+        public ProductNotFoundException(String name) {
+            super("No product of name \"" + name + "\" found", null, false, false);
         }
     }
 }

@@ -9,6 +9,7 @@ class ProductConfiguration {
 
     @Bean
     ProductFacade productFacade(){
-        return new ProductFacade();
+        InMemoryProductRepository inMemoryProductRepository = new InMemoryProductRepository();
+        return new ProductFacade(inMemoryProductRepository);
     }
 }
