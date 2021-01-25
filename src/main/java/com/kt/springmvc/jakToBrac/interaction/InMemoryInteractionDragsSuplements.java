@@ -1,25 +1,25 @@
 package com.kt.springmvc.jakToBrac.interaction;
 
-import com.kt.springmvc.jakToBrac.interaction.dto.InteractionTwoProducts;
+import com.kt.springmvc.jakToBrac.interaction.dto.InteractionDragsSuplements;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Objects.requireNonNull;
 
-class InMemoryInteractionRepositoryTwoProducts {
+class InMemoryInteractionDragsSuplements {
 
-    private ConcurrentHashMap<String, InteractionTwoProducts> map = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, InteractionDragsSuplements> map = new ConcurrentHashMap<>();
 
-    InteractionTwoProducts save(InteractionTwoProducts interaction) {
+    InteractionDragsSuplements save(InteractionDragsSuplements interaction) {
         requireNonNull(interaction);
         map.put(interaction.toString(), interaction);
         return interaction;
     }
 
-    InteractionTwoProducts findOneOrThrow(String name) {
-        InteractionTwoProducts interaction = map.get(name);
+    InteractionDragsSuplements findOneOrThrow(String name) {
+        InteractionDragsSuplements interaction = map.get(name);
         if (interaction == null) {
-            throw new InMemoryInteractionRepositoryTwoProducts.InteractionTwoProductsNotFoundException(name);
+            throw new InMemoryInteractionDragsSuplements.InteractionTwoProductsNotFoundException(name);
         }
         return interaction;
     }

@@ -5,15 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
-public class InteractionTwoProducts {
+public class InteractionFood {
 
-    private Product productA;
-    private Product productB;
-    private InteractionType interactionType;
-
-
-
+    Product product;
+    private FoodInteraction foodInteraction;
+    private List<FoodRestricted> foodRestrictedList;
+    private int minDelayInHours;
 }

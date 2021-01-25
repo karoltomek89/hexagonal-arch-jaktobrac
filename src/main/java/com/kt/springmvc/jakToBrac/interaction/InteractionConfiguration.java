@@ -1,7 +1,5 @@
 package com.kt.springmvc.jakToBrac.interaction;
 
-import com.kt.springmvc.jakToBrac.product.ProductFacade;
-import com.kt.springmvc.jakToBrac.recomendation.RecomendationFacade;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,8 +8,8 @@ class InteractionConfiguration {
 
     @Bean
     InteractionFacade interactionFacade(){
-        return new InteractionFacade();
+        InMemoryInteractionFood inMemoryInteractionFood = new InMemoryInteractionFood();
+        InMemoryInteractionDragsSuplements inMemoryInteractionDragsSuplements = new InMemoryInteractionDragsSuplements();
+        return new InteractionFacade(inMemoryInteractionFood, inMemoryInteractionDragsSuplements);
     }
-
-
 }
