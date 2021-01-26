@@ -1,19 +1,17 @@
 package com.kt.springmvc.jakToBrac.interaction.dto;
 
 import com.kt.springmvc.jakToBrac.product.dto.Product;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NonNull;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 public class InteractionDragsSuplements {
 
+    @NonNull
     private Product productA;
+    @NonNull
     private Product productB;
+    @NonNull
     private InteractionType interactionType;
-
-
 
 }

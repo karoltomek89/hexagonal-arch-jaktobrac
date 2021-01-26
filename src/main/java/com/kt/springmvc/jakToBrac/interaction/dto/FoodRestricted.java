@@ -1,5 +1,5 @@
 package com.kt.springmvc.jakToBrac.interaction.dto;
 
 public enum FoodRestricted {
-    GRAPEFRUIT, CITRUSES, MILK, FRUITS
+    GRAPEFRUIT, CITRUSES, MILK, FRUITS, NO_INFORMATION
 }

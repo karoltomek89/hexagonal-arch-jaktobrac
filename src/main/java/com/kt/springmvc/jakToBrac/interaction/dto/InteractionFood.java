@@ -1,15 +1,15 @@
 package com.kt.springmvc.jakToBrac.interaction.dto;
 
 import com.kt.springmvc.jakToBrac.product.dto.Product;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@Builder
+@EqualsAndHashCode
+@ToString
 public class InteractionFood {
 
     Product product;

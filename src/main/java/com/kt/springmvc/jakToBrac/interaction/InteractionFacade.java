@@ -19,6 +19,14 @@ public class InteractionFacade {
         this.inMemoryInteractionDragsSuplements = inMemoryInteractionDragsSuplements;
     }
 
+    public void addFoodInteraction(InteractionFood interactionFood){
+        inMemoryInteractionFood.save(interactionFood);
+    }
+
+    public void addDragsSuplementsInteraction(InteractionDragsSuplements interactionDragsSuplements){
+        inMemoryInteractionDragsSuplements.save(interactionDragsSuplements);
+    }
+
     public List<InteractionFood> getFoodInteractions(List<Product> productList) {
         List<InteractionFood> interactionFoodList = new ArrayList<>();
         for (Product product : productList) {

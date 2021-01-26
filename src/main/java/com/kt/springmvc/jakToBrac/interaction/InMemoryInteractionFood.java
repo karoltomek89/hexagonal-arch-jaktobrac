@@ -1,5 +1,6 @@
 package com.kt.springmvc.jakToBrac.interaction;
 
+import com.kt.springmvc.jakToBrac.interaction.dto.FoodInteraction;
 import com.kt.springmvc.jakToBrac.interaction.dto.InteractionFood;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,7 +20,7 @@ class InMemoryInteractionFood {
     InteractionFood findOneOrThrow(String name) {
         InteractionFood interaction = map.get(name);
         if (interaction == null) {
-            throw new InteractionWithFoodtNotFoundException(name);
+            interaction = InteractionFood.builder().foodInteraction(FoodInteraction.NO_INFORMATION).build();
         }
         return interaction;
     }
@@ -28,10 +29,4 @@ class InMemoryInteractionFood {
         map.remove(name);
     }
 
-    class InteractionWithFoodtNotFoundException extends RuntimeException {
-        public InteractionWithFoodtNotFoundException(String title) {
-            super("No interaction of name \"" + title + "\" found", null, false, false);
-        }
-    }
-    
 }
