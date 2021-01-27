@@ -5,7 +5,6 @@ import com.kt.springmvc.jakToBrac.interaction.dto.InteractionDragsSuplements;
 import com.kt.springmvc.jakToBrac.product.dto.Product;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class InteractionFacade {
@@ -31,7 +30,7 @@ public class InteractionFacade {
         List<InteractionFood> interactionFoodList = new ArrayList<>();
         for (Product product : productList) {
             interactionFoodList
-                    .add(inMemoryInteractionFood.findOneOrThrow(product.getProductName()));
+                    .add(inMemoryInteractionFood.find(product.getProductName()));
         }
         return interactionFoodList;
     }
@@ -40,7 +39,7 @@ public class InteractionFacade {
         List<InteractionDragsSuplements> interactionDragsSuplementsList = new ArrayList<>();
         for (Product product : productList) {
             interactionDragsSuplementsList
-                    .add(inMemoryInteractionDragsSuplements.findOneOrThrow(product.getProductName()));
+                    .add(inMemoryInteractionDragsSuplements.find(product.getProductName()));
         }
         return interactionDragsSuplementsList;
     }

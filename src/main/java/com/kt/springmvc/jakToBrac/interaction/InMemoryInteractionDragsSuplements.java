@@ -18,9 +18,8 @@ class InMemoryInteractionDragsSuplements {
         return interaction;
     }
 
-    InteractionDragsSuplements findOneOrThrow(String name) {
-        InteractionDragsSuplements interaction = map.get(name);
-        return interaction;
+    InteractionDragsSuplements find(String name) {
+        return map.get(name);
     }
 
     void delete(String name) {

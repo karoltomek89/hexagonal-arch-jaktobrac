@@ -27,7 +27,7 @@ class InteractionFacadeTest {
     }
 
     @Test
-    void shouldFindInteractionsWhenInteractionsAdded() {
+    void shouldFindFoodInteractionsWhenFoodInteractionsAdded() {
 
         //given
         Product vitD3 = createProduct("Vigaflex Forte", ProductType.SUPLEMENT, ActiveSubstanceOfSuplement.VITAMIN_D3);
@@ -38,22 +38,54 @@ class InteractionFacadeTest {
                 .minDelayInHours(0)
                 .build();
         InteractionFood calcFood = InteractionFood.builder()
-                .product(vitD3)
+                .product(calc)
                 .foodInteraction(FoodInteraction.WITH_MEAL)
                 .minDelayInHours(0)
                 .build();
 
-        var vitD3DragsSuplements = new InteractionDragsSuplements(vitD3,calc,InteractionType.POSITIVE);
-
         //when
         interactionFacade.addFoodInteraction(vitD3Food);
         interactionFacade.addFoodInteraction(calcFood);
-        interactionFacade.addDragsSuplementsInteraction(vitD3DragsSuplements);
 
         //then
         assertFalse(interactionFacade.getFoodInteractions(List.of(vitD3)).isEmpty());
+        assertFalse(interactionFacade.getFoodInteractions(List.of(calc)).isEmpty());
     }
 
+    @Test
+    void shouldFindDragSuplementInteractionsWhenDragSuplementInteractionsAdded() {
+
+        //given
+        Product vitD3 = createProduct("Vigaflex Forte", ProductType.SUPLEMENT, ActiveSubstanceOfSuplement.VITAMIN_D3);
+        Product calc = createProduct("Calcium", ProductType.SUPLEMENT, ActiveSubstanceOfSuplement.CALCIUM);
+        var vitD3DragsSuplements = new InteractionDragsSuplements(vitD3,calc,InteractionType.POSITIVE);
+
+        //when
+        interactionFacade.addDragsSuplementsInteraction(vitD3DragsSuplements);
+
+        //then
+        assertFalse(interactionFacade.getDragSuplementInteractions(List.of(vitD3)).isEmpty());
+    }
+
+    @Test
+    void shouldNotFindInformationWhenNoFoodInteractionsExist() {
+
+        //given
+        Product vitD3 = createProduct("Vigaflex Forte", ProductType.SUPLEMENT, ActiveSubstanceOfSuplement.VITAMIN_D3);
+
+        //when then
+        assertEquals(FoodInteraction.NO_INFORMATION, interactionFacade.getFoodInteractions(List.of(vitD3)).get(0).getFoodInteraction());
+    }
+
+    @Test
+    void shouldFindNullWhenNoDragSuplementInteractionsAdded() {
+
+        //given
+        Product vitD3 = createProduct("Vigaflex Forte", ProductType.SUPLEMENT, ActiveSubstanceOfSuplement.VITAMIN_D3);
+
+        //when then
+        assertTrue(interactionFacade.getDragSuplementInteractions(List.of(vitD3)).contains(null));
+    }
 
     private Product createProduct(String name, ProductType type, Component component) {
         return Product.builder().productName(name).productType(type).component(component).build();

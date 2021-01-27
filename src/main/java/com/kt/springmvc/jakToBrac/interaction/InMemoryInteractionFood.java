@@ -17,7 +17,7 @@ class InMemoryInteractionFood {
         return interaction;
     }
 
-    InteractionFood findOneOrThrow(String name) {
+    InteractionFood find(String name) {
         InteractionFood interaction = map.get(name);
         if (interaction == null) {
             interaction = InteractionFood.builder().foodInteraction(FoodInteraction.NO_INFORMATION).build();
