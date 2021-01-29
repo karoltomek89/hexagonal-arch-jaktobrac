@@ -13,7 +13,8 @@ public class RecomendationFacade {
             List<Product> productList,
             List<InteractionFood> interactionFoodList,
             List<InteractionDragsSuplements> interactionDragsSuplementsList){
-        return null;
+
+        return RecomendationCreator.createRecomendation(productList,interactionDragsSuplementsList, interactionFoodList);
     }
 
 }
