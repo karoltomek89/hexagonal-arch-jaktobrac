@@ -3,39 +3,62 @@ package com.kt.springmvc.jakToBrac.recomendation;
 import com.kt.springmvc.jakToBrac.interaction.dto.FoodInteraction;
 import com.kt.springmvc.jakToBrac.interaction.dto.InteractionDragsSuplements;
 import com.kt.springmvc.jakToBrac.interaction.dto.InteractionFood;
+import com.kt.springmvc.jakToBrac.interaction.dto.InteractionType;
 import com.kt.springmvc.jakToBrac.product.dto.Product;
 import com.kt.springmvc.jakToBrac.recomendation.dto.Recomendation;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class RecomendationCreator {
 
-    static Map<Product, Set<Product>> checkTogether(List<Product> productList,
+    static Map<String,Map<Product, Set<Product>>> checkTogetherOrNot(List<Product> productList,
                                                     List<InteractionDragsSuplements> interactionDragsSuplementsList) {
-        return null;
+        Map<Product, Set<Product>> productsEatTogether = new HashMap<>();
+        Map<Product, Set<Product>> productsEatNotTogether = new HashMap<>();
+        Map<String,Map<Product, Set<Product>>> mapTogetherOrNot = new HashMap<>();
+        mapTogetherOrNot.put("productsEatTogether", productsEatTogether);
+        mapTogetherOrNot.put("productsEatNotTogether", productsEatNotTogether);
+
+        for (Product p : productList) {
+            Set<Product> productTogetherSet = new HashSet<>();
+            Set<Product> productNotTogetherSet = new HashSet<>();
+            productsEatTogether.put(p, productTogetherSet);
+            productsEatNotTogether.put(p, productNotTogetherSet);
+
+            for (InteractionDragsSuplements inter : interactionDragsSuplementsList) {
+                if (inter.getProductA().getProductName().equals(p.getProductName())
+                        && (InteractionType.POSITIVE.equals(inter.getInteractionType())
+                        || InteractionType.NO_INFORMATION.equals(inter.getInteractionType()))) {
+
+                    productsEatTogether.get(p).add(inter.getProductB());
+                }else {
+                    productsEatNotTogether.get(p).add(inter.getProductB());
+                }
+            }
+        }
+
+        return mapTogetherOrNot;
     }
 
-    static Map<Product, Set<Product>> checkNotTogether(List<Product> productList,
-                                                       List<InteractionDragsSuplements> interactionDragsSuplementsList) {
-        return null;
-    }
+    static Map<Product, InteractionFood> checkFilterFoodInteractions(List<InteractionFood> interactionFoodList) {
 
-    static Map<Product, FoodInteraction> checkFilterFodInteractions(List<InteractionFood> interactionFoodList) {
-        return null;
+        return interactionFoodList.stream()
+                .filter( p -> FoodInteraction.NO_INFORMATION !=p.getFoodInteraction())
+                .collect(Collectors.toMap(InteractionFood::getProduct, interactionFood -> interactionFood));
     }
 
     static Recomendation createRecomendation(List<Product> productList,
                                              List<InteractionDragsSuplements> interactionDragsSuplementsList,
                                              List<InteractionFood> interactionFoodList) {
 
-        Map<Product, Set<Product>> productsEatTogether = checkTogether(productList, interactionDragsSuplementsList);
-        Map<Product, Set<Product>> productsEatNotTogether = checkNotTogether(productList, interactionDragsSuplementsList);
-        Map<Product, FoodInteraction> productsFoodInformation = checkFilterFodInteractions(interactionFoodList);
+        Map<String,Map<Product, Set<Product>>> mapTogetherOrNot = checkTogetherOrNot(productList, interactionDragsSuplementsList);
+        Map<Product, Set<Product>> productsEatTogether = mapTogetherOrNot.get("productsEatTogether");
+        Map<Product, Set<Product>> productsEatNotTogether = mapTogetherOrNot.get("productsEatNotTogether");
+        Map<Product, InteractionFood> productsFoodInformation = checkFilterFoodInteractions(interactionFoodList);
 
         return Recomendation.create(productsEatTogether, productsEatNotTogether, productsFoodInformation);
 
