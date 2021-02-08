@@ -1,4 +1,5 @@
 package com.kt.springmvc.jakToBrac.recomendation;
+
 import com.kt.springmvc.jakToBrac.interaction.InteractionFacade;
 import com.kt.springmvc.jakToBrac.interaction.dto.*;
 import com.kt.springmvc.jakToBrac.product.dto.ActiveSubstanceOfSuplement;
@@ -34,7 +35,7 @@ class RecomendationFacadeTest {
         var vitD3 = createProduct("Vigaflex Forte", ProductType.SUPLEMENT, ActiveSubstanceOfSuplement.VITAMIN_D3);
         var calc = createProduct("Calcium", ProductType.SUPLEMENT, ActiveSubstanceOfSuplement.CALCIUM);
         var omega3 = createProduct("Omega3", ProductType.SUPLEMENT, ActiveSubstanceOfSuplement.OMEGA_3_FATTY_ACID);
-        List<Product> productList = List.of(vitD3,calc,omega3);
+        List<Product> productList = List.of(vitD3, calc, omega3);
 
         var vitD3Food = InteractionFood.builder()
                 .product(vitD3)
@@ -51,17 +52,23 @@ class RecomendationFacadeTest {
                 .foodInteraction(FoodInteraction.WITH_MEAL)
                 .minDelayInHours(0)
                 .build();
-        List<InteractionFood> interactionFoodList = List.of(vitD3Food,calcFood,omega3Food);
+        List<InteractionFood> interactionFoodList = List.of(vitD3Food, calcFood, omega3Food);
 
-        var vitD3DragsSuplements = new InteractionDragsSuplements(vitD3,calc,InteractionType.POSITIVE);
-        var omega3DragsSuplements = new InteractionDragsSuplements(vitD3,omega3,InteractionType.POSITIVE);
-        var calcDragsSuplements = new InteractionDragsSuplements(calc,omega3,InteractionType.NO_INFORMATION);
+        var vitD3DragsSuplements = new InteractionDragsSuplements(vitD3, calc, InteractionType.POSITIVE);
+        var omega3DragsSuplements = new InteractionDragsSuplements(vitD3, omega3, InteractionType.NO_INFORMATION);
+        var calcDragsSuplements = new InteractionDragsSuplements(calc, omega3, InteractionType.NO_INFORMATION);
         List<InteractionDragsSuplements> interactionDragsSuplementsList = List
-                .of(vitD3DragsSuplements,omega3DragsSuplements,calcDragsSuplements);
+                .of(vitD3DragsSuplements, omega3DragsSuplements, calcDragsSuplements);
 
         //when then
-       Recomendation recomendation = recomendationFacade
-               .getRecomendation(productList, interactionFoodList, interactionDragsSuplementsList);
+        Recomendation recomendation = recomendationFacade
+                .getRecomendation(productList, interactionFoodList, interactionDragsSuplementsList);
+        assertAll(
+                () -> assertFalse(recomendation.getProductsEatNotTogether().isEmpty()),
+                () -> assertFalse(recomendation.getProductsEatTogether().isEmpty()),
+                () -> assertFalse(recomendation.getProductsFoodInformation().isEmpty())
+        );
+        System.out.println(recomendation);
 
     }
 
