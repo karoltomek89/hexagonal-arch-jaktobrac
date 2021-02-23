@@ -32,14 +32,32 @@ class RecomendationCreator {
             for (InteractionDragsSuplements inter : interactionDragsSuplementsList) {
                 if (inter.getProductA().getProductName().equals(p.getProductName())
                         && (InteractionType.POSITIVE.equals(inter.getInteractionType())
-                        || InteractionType.NO_INFORMATION.equals(inter.getInteractionType()))) {
+                        || InteractionType.NO_INFORMATION.equals(inter.getInteractionType())
+                )
+                ) {
 
                     productsEatTogether.get(p).add(inter.getProductB());
-                }else {
+
+                }else if(inter.getProductA().getProductName().equals(p.getProductName())
+                                && InteractionType.NEGATIVE.equals(inter.getInteractionType())) {
                     productsEatNotTogether.get(p).add(inter.getProductB());
+
                 }
             }
         }
+
+        for ( Map.Entry<Product, Set<Product>> entry : productsEatTogether.entrySet()) {
+            for (Product product : entry.getValue()) {
+                productsEatTogether.get(product).add(entry.getKey());
+            }
+        }
+
+        for ( Map.Entry<Product, Set<Product>> entry : productsEatNotTogether.entrySet()) {
+            for (Product product : entry.getValue()) {
+                productsEatNotTogether.get(product).add(entry.getKey());
+            }
+        }
+
 
         return mapTogetherOrNot;
     }
