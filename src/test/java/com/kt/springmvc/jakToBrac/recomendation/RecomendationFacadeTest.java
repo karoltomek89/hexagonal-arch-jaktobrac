@@ -29,7 +29,7 @@ class RecomendationFacadeTest {
     }
 
     @Test
-    void getRecomendation() {
+    void shouldPrepareRecomendationWhenDataAvailable() {
 
         //given
         var vitD3 = createProduct("Vigaflex Forte", ProductType.SUPLEMENT, ActiveSubstanceOfSuplement.VITAMIN_D3);
